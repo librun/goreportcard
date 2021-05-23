@@ -6,7 +6,9 @@ build:
 install:
 	./scripts/make-install.sh
 
-lint: fmt vet staticcheck misspell
+lint:
+	golangci-lint run --skip-dirs=repos --disable-all --enable=golint --enable=vet --enable=gofmt ./...
+	find . -name '*.go' | xargs gofmt -w -s
 
 fmt:
 	./scripts/gofmt.sh
